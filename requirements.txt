@@ -1,0 +1,5 @@
+python-telegram-bot==22.8
+Flask
+bip_utils==2.9.3
+coincurve==20.0.0
+mnemonic
