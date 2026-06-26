@@ -390,7 +390,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                 f"||`{addr}`||\n\n"
                 f"**Tap on the address above to copy instantly** 📋\n\n"
                 f"Balance: **{ud['balance']:.4f} SOL**\n"
-                f"Send any amount — funds appear in \\\~5–30 seconds."
+                f"Send any amount — funds appear in \~5–30 seconds."
             )
             kb = InlineKeyboardMarkup([[InlineKeyboardButton("Back 🔙", callback_data="back_menu")]])
         await edit_or_send(update, context, text, kb)
@@ -1265,7 +1265,6 @@ async def main():
     app.add_handler(conv)
 
     # FIXED: Enable job queue (required for run_once)
-    # This uses the internal create_task_queue() method which is available in PTB 22.x+
     app.job_queue = app.create_task_queue()
 
     print("FOMO TraderPro running...")
