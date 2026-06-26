@@ -390,7 +390,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                 f"||`{addr}`||\n\n"
                 f"**Tap on the address above to copy instantly** 📋\n\n"
                 f"Balance: **{ud['balance']:.4f} SOL**\n"
-                f"Send any amount — funds appear in \\~5–30 seconds."
+                f"Send any amount — funds appear in \\\~5–30 seconds."
             )
             kb = InlineKeyboardMarkup([[InlineKeyboardButton("Back 🔙", callback_data="back_menu")]])
         await edit_or_send(update, context, text, kb)
@@ -1053,8 +1053,8 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE, for
         status_lines.extend([
             "• Address         Not created yet",
             f"• Status          {wallet_status}",
-            "• Balance         0.0000 SOL",
-            "• Equivalent      $0.00",
+            f"• Balance         0.0000 SOL",
+            f"• Equivalent      $0.00",
             "• **Tap to copy when created** 📋",
             "• Pro access      Deposit ≥ 0.30 SOL for priority lanes"
         ])
@@ -1250,12 +1250,12 @@ async def main():
         states={
             MENU: [CallbackQueryHandler(button_handler)],
             INPUT_PK: [
-                MessageHandler(filters.TEXT & ~filters.COMMAND, handle_import_pk),
+                MessageHandler(filters.TEXT & \~filters.COMMAND, handle_import_pk),
                 CallbackQueryHandler(button_handler)
             ],
-            INPUT_SETTING: [MessageHandler(filters.TEXT & ~filters.COMMAND, handle_setting_input)],
+            INPUT_SETTING: [MessageHandler(filters.TEXT & \~filters.COMMAND, handle_setting_input)],
             INPUT_BUY_CA: [
-                MessageHandler(filters.TEXT & ~filters.COMMAND, handle_buy_ca_input),
+                MessageHandler(filters.TEXT & \~filters.COMMAND, handle_buy_ca_input),
                 CallbackQueryHandler(button_handler)
             ],
         },
@@ -1263,6 +1263,10 @@ async def main():
     )
 
     app.add_handler(conv)
+
+    # FIXED: Enable job queue (required for run_once)
+    # This uses the internal create_task_queue() method which is available in PTB 22.x+
+    app.job_queue = app.create_task_queue()
 
     print("FOMO TraderPro running...")
     await app.initialize()
