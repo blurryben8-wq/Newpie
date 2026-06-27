@@ -1239,12 +1239,9 @@ async def main():
         },
         fallbacks=[],
     )
-
     app.add_handler(conv)
-
     async def main():
     print("FOMO TraderPro running...")
-    
     # Webhook config
     PORT = int(os.environ.get("PORT", 10000))  # Render sets PORT automatically
     WEBHOOK_URL = os.environ.get("WEBHOOK_URL")  # e.g. https://yourapp.onrender.com
@@ -1261,9 +1258,7 @@ async def main():
         webhook_url=f"{WEBHOOK_URL}/webhook",
         drop_pending_updates=True,
     )
-    
     print(f"Webhook live on port {PORT}")
     await asyncio.Event().wait()
-
 if __name__ == "__main__":
     asyncio.run(main())
