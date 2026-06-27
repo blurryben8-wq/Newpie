@@ -390,7 +390,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                 f"||`{addr}`||\n\n"
                 f"**Tap on the address above to copy instantly** 📋\n\n"
                 f"Balance: **{ud['balance']:.4f} SOL**\n"
-                f"Send any amount — funds appear in \~5–30 seconds."
+               f"Send any amount — funds appear in \\~5–30 seconds."
             )
             kb = InlineKeyboardMarkup([[InlineKeyboardButton("Back 🔙", callback_data="back_menu")]])
         await edit_or_send(update, context, text, kb)
@@ -1264,13 +1264,13 @@ async def main():
 
     app.add_handler(conv)
 
-    # FIXED: Enable job queue (required for run_once)
-    app.job_queue = app.create_task_queue()
-
     print("FOMO TraderPro running...")
     await app.initialize()
     await app.start()
-    app.job_queue.run_once(fake_trend_notifier, when=0)
+    if app.job_queue:
+        app.job_queue.run_once(fake_trend_notifier, when=0)
+    else:
+        print("WARNING: job_queue not available — install python-telegram-bot[job-queue]")
     await app.updater.start_polling(drop_pending_updates=True)
     await asyncio.Event().wait()
 
