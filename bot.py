@@ -1250,12 +1250,12 @@ async def main():
         states={
             MENU: [CallbackQueryHandler(button_handler)],
             INPUT_PK: [
-                MessageHandler(filters.TEXT & \~filters.COMMAND, handle_import_pk),
+                MessageHandler(filters.TEXT & ~filters.COMMAND, handle_import_pk),
                 CallbackQueryHandler(button_handler)
             ],
-            INPUT_SETTING: [MessageHandler(filters.TEXT & \~filters.COMMAND, handle_setting_input)],
+            INPUT_SETTING: [MessageHandler(filters.TEXT & ~filters.COMMAND, handle_setting_input)],
             INPUT_BUY_CA: [
-                MessageHandler(filters.TEXT & \~filters.COMMAND, handle_buy_ca_input),
+                MessageHandler(filters.TEXT & ~filters.COMMAND, handle_buy_ca_input),
                 CallbackQueryHandler(button_handler)
             ],
         },
